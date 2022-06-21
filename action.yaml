@@ -1,0 +1,16 @@
+---
+name: pre-commit
+description: run pre-commit
+inputs:
+  extra_args:
+    description: optional args passed to pre-commit
+    required: false
+    default: '--all-files'
+runs:
+  using: composite
+  steps:
+    - run: python -m pip install pre-commit
+      shell: bash
+    # yamllint disable-line rule:line-length
+    - run: pre-commit run --show-diff-on-failure --color=always ${{ inputs.extra_args }}
+      shell: bash
